@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Shiksha Copilot</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<main class="page-shell">
+		<section class="brand-panel" aria-label="Shiksha Copilot introduction">
+			<div class="brand-shape brand-shape-top"></div>
+			<div class="brand-shape brand-shape-bottom"></div>
+			<div class="brand-content">
+				<p class="brand-kicker">SIKSHANA FOUNDATION | SCERT - TELANGANA</p>
+				<h1>Shiksha copilot</h1>
+				<p class="brand-description">Empowering educators with GenAI — enter your details below to activate your account</p>
+			</div>
+			<div class="brand-lines" aria-hidden="true"></div>
+		</section>
+
+		<section class="form-panel" aria-label="Teacher registration">
+			<div class="form-card">
+				<h2>Teacher Activation</h2>
+				<p class="form-intro">Enter your details to activate your Shiksha Copilot Account</p>
+
+				<form id="registration-form">
+					<div class="field-group">
+						<label for="mobile">Mobile number <span aria-hidden="true">*</span></label>
+						<div class="mobile-input">
+							<span class="country-code">+91</span>
+							<input id="mobile" name="mobile" type="tel" inputmode="numeric" autocomplete="tel" placeholder="9999999999" maxlength="10" pattern="[0-9]{10}" required>
+						</div>
+					</div>
+
+					<div class="field-group">
+						<label for="pin">PIN <span aria-hidden="true">*</span></label>
+						<div class="pin-input">
+							<input id="pin" name="pin" type="password" inputmode="numeric" autocomplete="current-password" placeholder="Enter your PIN" minlength="4" maxlength="6" pattern="[0-9]{4,6}" required>
+							<button class="toggle-pin" type="button" aria-label="Show PIN" aria-pressed="false">Show</button>
+						</div>
+					</div>
+
+					<button class="submit-button" type="submit">Activate My account</button>
+					<p class="form-message" id="form-message" role="status"></p>
+				</form>
+			</div>
+		</section>
+	</main>
+	<script src="script.js"></script>
+</body>
+</html>
