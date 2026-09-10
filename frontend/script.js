@@ -4,6 +4,13 @@ const togglePinButton = document.querySelector('.toggle-pin');
 const registrationForm = document.querySelector('#registration-form');
 const formMessage = document.querySelector('#form-message');
 
+const showMessage = (message, type = 'error') => {
+	formMessage.textContent = message;
+	formMessage.className = `form-message ${type}`;
+	formMessage.setAttribute('role', type === 'error' ? 'alert' : 'status');
+	formMessage.hidden = false;
+};
+
 const numericInputs = [mobileInput, pinInput];
 
 numericInputs.forEach((input) => {
@@ -21,22 +28,62 @@ togglePinButton.addEventListener('click', () => {
 	togglePinButton.setAttribute('aria-pressed', String(!isVisible));
 });
 
-registrationForm.addEventListener('submit', (event) => {
+registrationForm.addEventListener('submit', async(event) => {
 	event.preventDefault();
 	const mobileIsValid = /^[0-9]{10}$/.test(mobileInput.value);
 	const pinIsValid = /^[0-9]{4,6}$/.test(pinInput.value);
 
 	if (!mobileIsValid || !pinIsValid) {
-		if (!mobileIsValid) {
-			mobileInput.setCustomValidity('Enter a valid 10-digit mobile number.');
-			mobileInput.reportValidity();
-		} else {
-			pinInput.setCustomValidity('Enter a PIN with 4 to 6 digits.');
-			pinInput.reportValidity();
-		}
-		formMessage.textContent = '';
+		showMessage('Please enter a valid 10-digit mobile number and a 4 to 6-digit PIN.');
+		registrationForm.reportValidity();
 		return;
 	}
 
-	formMessage.textContent = 'Details received. You can continue to your session.';
+	const mobile = mobileInput.value;
+	const pin = pinInput.value;
+
+	showMessage('Submitting...', 'loading');
+
+	try {
+		const response = await fetch('http://localhost:5000/api/users', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				mobile,
+				pin
+			})
+		});
+
+		const data = await response.json();
+
+		console.log('Status:', response.status);
+		console.log('Response:', data);
+
+		if (response.ok && data.success) {
+			showMessage(
+				'Your account was activated successfully.',
+				'success'
+			);
+
+			registrationForm.reset();
+		} else {
+			showMessage(
+				data.message || 'We could not activate your account. Please try again.'
+			);
+		}
+
+	} catch (error) {
+		console.error('Fetch error:', error);
+
+		showMessage(
+			'We could not connect to the activation service. Please check your connection and try again.'
+		);
+	}
 });
+
+
+
+
+

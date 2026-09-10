@@ -249,11 +249,67 @@ input:focus {
 }
 
 .form-message {
-	min-height: 20px;
+	display: flex;
+	align-items: center;
+	min-height: 48px;
 	margin: 10px 0 0;
-	color: #2d79b1;
+	padding: 11px 14px 11px 42px;
+	border: 1px solid transparent;
+	border-radius: 12px;
+	background: #f4f7fa;
+	color: #536b82;
 	font-size: 13px;
+	font-weight: 700;
+	line-height: 1.4;
+	position: relative;
 	text-align: center;
+}
+
+.form-message::before {
+	position: absolute;
+	left: 15px;
+	width: 19px;
+	height: 19px;
+	border-radius: 50%;
+	content: "!";
+	background: #7890a5;
+	color: #fff;
+	font-size: 13px;
+	font-weight: 900;
+	line-height: 19px;
+	text-align: center;
+}
+
+.form-message.error {
+	border-color: #f2b8b5;
+	background: #fff3f2;
+	color: #a53b37;
+}
+
+.form-message.error::before {
+	background: #d9534f;
+}
+
+.form-message.success {
+	border-color: #b8dfc8;
+	background: #effaf3;
+	color: #287344;
+}
+
+.form-message.success::before {
+	background: #38a169;
+	content: "✓";
+}
+
+.form-message.loading {
+	border-color: #c9ddeb;
+	background: #f1f8fc;
+	color: #2d79b1;
+}
+
+.form-message.loading::before {
+	background: #398dcc;
+	content: "…";
 }
 
 @media (max-width: 760px) {
